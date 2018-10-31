@@ -18,9 +18,10 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
-        alias: {
-            ['~']: path.resolve(__dirname + '/src')
-        }
-    }
+        extensions: ['.js', '.jsx']
+    },
+    devServer: {
+        contentBase: './public'
+    },
+    mode: process.env.NODE_ENV
 };
