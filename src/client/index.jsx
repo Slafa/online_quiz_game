@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import Login from './components/login';
-import Game from './components/game';
+import Game from '../server/game/game';
 import Signup from './components/signup';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import createHistory from "history/createBrowserHistory"

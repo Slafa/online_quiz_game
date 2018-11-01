@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
+import axios from 'axios';
 
 
 class Lobby extends Component {
@@ -13,9 +14,11 @@ class Lobby extends Component {
         }
     }
 
+
+
     placeStartButton() {
         if (this.state.isAdmin) {
-            return (<button>Start</button>)
+            return (<Link to={'/game'}>Start</Link>)
         }
     }
 

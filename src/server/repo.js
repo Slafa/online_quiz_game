@@ -1,13 +1,15 @@
+const bcrypt = require('bcrypt-nodejs');
 const players = new Map();
 
 let addPlayer = (id, password) => {
     if (getPlayer(id)) return false;
+    let hased = bcrypt.hashSync(password);
 
     players.set(
         id,
         {
             id: id,
-            password: password
+            password: hased
         });
     return true;
 };
@@ -23,7 +25,7 @@ let verifyPlayer = (id, password) =>{
         return false;
     }
 
-    return player.password === password;
+    return bcrypt.compareSync(password, player.password);
 };
 
 
