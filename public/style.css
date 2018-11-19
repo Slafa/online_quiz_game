@@ -23,7 +23,7 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 button {
-    background-color: #4CAF50;
+    background-color: #0e4eaf;
     color: white;
     padding: 14px 20px;
     border: none;
@@ -34,8 +34,18 @@ button {
     margin-right: auto;
 }
 
+.wrong, .wrong:hover{
+    background-color: #af0507;
+    cursor: auto;
+}
+
+.correct, .correct:hover {
+    background-color: #11af0d;
+    cursor: auto;
+}
+
 button:hover{
-    background-color: #4CBB50;
+    background-color: #5b7cbb;
 }
 
 .cont{

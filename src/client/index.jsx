@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import Login from './components/login';
-import Game from '../server/game/game';
+import Game from './components/game';
 import Signup from './components/signup';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import createHistory from "history/createBrowserHistory"
@@ -57,7 +57,7 @@ export class App extends Component {
 
                         <Route
                             exact path={"/game"}
-                            render={() => <Game/>}
+                            render={() => <Game userId={this.state.userId} setUserId={this.setUserId}/>}
                         />
 
                         <Route

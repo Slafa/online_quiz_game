@@ -42,14 +42,19 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "latest",
+    "cookie-parser": "^1.4.3",
+    "cookie-sessions": "0.0.2",
     "express": "latest",
     "express-session": "^1.15.6",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "passport.socketio": "latest",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-router-dom": "^4.3.1",
-    "bcrypt-nodejs": "latest"
+    "socket.io": "2.1.1",
+    "socket.io-client": "2.1.1"
   }
 }

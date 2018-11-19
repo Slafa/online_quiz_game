@@ -4,11 +4,16 @@ const passport = require('passport');
 const session = require("express-session");
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
-const Repo = require('./repo');
+const Repo = require('./db/repo');
 const routes = require('./routes');
+const secret = (Math.random()*1234567890934567898765).toString()
 
+console.log('secret: '+secret)
 
 const app = express();
+
+
+
 
 
 // found this here
@@ -30,10 +35,11 @@ app.use(bodyParser.json());
 
 
 
+
 app.use(express.static('public'));
 
 app.use(session({
-    secret: (Math.random()*1234567890934567898765).toString(),
+    secret: secret,
     resave: false,
     saveUninitialized: false
 }));
