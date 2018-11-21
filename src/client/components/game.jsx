@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import {withRouter, Link} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import openSocket from 'socket.io-client';
+import Results from './results'
 
 
 import q from '../../server/data/testq.json'
@@ -18,9 +19,9 @@ class Game extends Component {
             admin: false,
             game: {
                 id: null,
-                question: q.question,
-                answers: q.incorrect_answers,
-                correctAnswer: q.correct_answer,
+                question: null,
+                answers: null,
+                correctAnswer: null,
                 timer: 10,
                 rounds: null,
                 round: null,
@@ -214,12 +215,14 @@ class Game extends Component {
 
     scoreBoard(){
         if(this.state.results === null) return;
-        let score = this.state.results.map((x) => <p key={x.userId}>{x.userId} / {x.points}</p>)
+        let score = this.state.results.map((x) => {return({player: x.userId, points: x.points})});
 
+
+        console.log(JSON.stringify(this.state.results));
         return(
             <div>
-                <p>NAME / SCORE</p>
-                {score}
+                <Results name={'Player score'} data={score}/>
+                <button onClick={() => this.state.socket.emit('startGame',this.state.game.id)} className={'btn'}>Back to login</button>
             </div>
         )
     }
@@ -227,7 +230,7 @@ class Game extends Component {
 
 
     render() {
-
+        console.log('inne i game');
         if (!this.state.started) return(<Lobby
             players={this.state.players}
             admin={this.state.admin}
@@ -241,7 +244,7 @@ class Game extends Component {
             return <button disabled={this.state.btns.disable} className={this.state.btns.wrongClass} value={e} onClick={(e) => this.registerAnswer(e)} key={e}>{e}</button>;
         });
 
-        if (this.state.results !== null) answers = this.scoreBoard();
+        if (this.state.results !== null) return(this.scoreBoard());
 
 
         return (

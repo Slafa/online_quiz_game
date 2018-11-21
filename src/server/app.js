@@ -7,9 +7,6 @@ const path = require('path');
 const Repo = require('./db/repo');
 const routes = require('./routes');
 const secret = (Math.random()*1234567890934567898765).toString()
-
-console.log('secret: '+secret)
-
 const app = express();
 
 
@@ -33,23 +30,19 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(bodyParser.json());
 
-
+app.use(session({
+    secret: secret,
+    resave: false,
+    saveUninitialized: true
+}));
 
 
 app.use(express.static('public'));
 
-app.use(session({
-    secret: secret,
-    resave: false,
-    saveUninitialized: false
-}));
+
 
 
 passport.use(new LocalStrategy(
-    /*
-        Need to tell which fields represent the  "username" and which the "password".
-        This fields will be in a Form or JSON data sent by user when authenticating.
-     */
     {
         usernameField: 'userId',
         passwordField: 'password'

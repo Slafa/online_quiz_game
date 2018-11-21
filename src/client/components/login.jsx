@@ -21,27 +21,28 @@ class Login extends Component {
 
     render() {
         return (
-            <div className={'cont'}>
-                <div className={'left'}>
+            <div className={'form-horizontal'}>
+                <Link to={'/signup'}><p className={''}>sign up</p></Link>
+                <div className={'well'}>
                     <label><b>Username</b></label>
                     <br/>
                     <input onChange={(e) => this.changeValue(e)} name={'userName'} type={'text'}
                            placeholder={"Enter username"}/>
                 </div>
-                <div className={'left'}>
+                <div className={''}>
                     <label><b>Password</b></label>
                     <br/>
                     <input onChange={(e) => this.changeValue(e)} name={'password'} type={'password'}
                            placeholder={'Enter password'}/>
                 </div>
-                <button onClick={() => this.logIn()}>Login</button>
-                <Link to={'/signup'}>Or sign up</Link>
+                <button className={'btn btn-default'} onClick={() => this.logIn()}>Login</button>
+
                 <div>{this.state.errorMsg}</div>
             </div>
         )
     }
 
-    async logIn() {
+    logIn() {
         const {userName, password} = this.state;
 
         axios.post('/api/V1/login', {

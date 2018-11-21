@@ -23,6 +23,7 @@ const start = (server) => {
         onDisconnect(socket);
         onStartGame(socket);
         onAnswer(socket);
+        onUpdate(socket);
 
     });
 };
@@ -82,6 +83,7 @@ onStartGame = (socket) => {
 
     socket.on('startGame', (dto) => {
         if (!Games.exist(dto)) return;
+        console.log('komemr hit');
         Games.startGame(dto);
         sendGameInfo(dto);
 
@@ -94,6 +96,7 @@ onStartGame = (socket) => {
                 clearInterval(intervalObj);
                 let players = Games.getGameInfo(dto).players.sort((a, b) => a.points < b.points);
                 sendToAll(dto,'scoreBoard', players);
+                Games.deleteGame(dto);
                 //players.forEach((a) => console.log('player: ' + a.userId + 'points: ' + a.points));
             } else {
                 Games.incrementRound(dto);
@@ -149,20 +152,27 @@ onDisconnect = (socket) => {
     });
 };
 
+onUpdate = (socket) =>{
+    socket.on('newGame', (userId)=>{
+console.log('updating....')
+        let gameObject = Games.add(userId);
+
+        socket.emit('updatePlayer', gameObject);
+
+    })
+};
+
 updatePlayerList = (gameId) => {
-    console.log('kom hit da for faen!!!!!!!' + Games.exist(gameId));
     if (!Games.exist(gameId)) return;
     if (gameId !== undefined) {
         let players = Games.getPlayers(gameId);
         if (players === undefined) return;
-        console.log('player exist? ' +players);
         for (let player of players) {
             ActivePlayers.getSocket(player).emit(`updateGameInfo`, {
                 players: Games.getPlayers(gameId),
             })
         }
     } else {
-        console.log('np er jeg her');
         for (let x of Games.getAllGameIdes()) {
             for (let player of Games.getPlayers(x)) {
                 ActivePlayers.getSocket(player).emit(`updateGameInfo`, {

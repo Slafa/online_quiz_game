@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import axios from "axios";
 
 
@@ -18,7 +18,8 @@ class Signup extends Component {
 
     render() {
         return (
-            <div className={'cont'}>
+            <div className={'form-horizontal'}>
+                <Link to={'/login'}><p className={''}>Login</p></Link>
                 <div>
                     <label><b>Username</b></label>
                     <br/>
@@ -33,6 +34,7 @@ class Signup extends Component {
                 </div>
                 <div>
                     <label><b>Re enter</b></label>
+                    <br/>
                     <input onChange={(e) => this.changeValue(e)} name={'password2'} type={'password'}
                            placeholder={'Reenter password'}/>
                 </div>

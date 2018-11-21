@@ -34,6 +34,27 @@ button {
     margin-right: auto;
 }
 
+.teberu{
+    border-collapse: collapse;
+    width: 50%;
+}
+.teberu td, .teberu th {
+    border: 1px solid rgb(0, 64, 128);
+    padding: 6px;
+}
+
+.teberu tr:nth-child(even){background-color: rgb(77, 166, 255);}
+
+.teberu tr:hover {background-color: #ddd;}
+
+.teberu th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(51, 153, 255);
+    color: white;
+}
+
 .wrong, .wrong:hover{
     background-color: #af0507;
     cursor: auto;

@@ -10,7 +10,7 @@ router.post('/api/V1/login', passport.authenticate('local'), (req, res) => {
 });
 
 
-router.post('/api/V1/signup', function (req, res) {
+router.post('/api/V1/signup', (req, res) => {
     const created = Repo.addPlayer(req.body.userId, req.body.password);
 
     if (!created) {
@@ -28,7 +28,7 @@ router.post('/api/V1/signup', function (req, res) {
     });
 });
 
-router.post('/api/V1/wstoken', function (req, res) {
+router.post('/api/V1/wstoken', (req, res) => {
 
     if (!req.user) {
         res.status(401).send();
@@ -36,8 +36,19 @@ router.post('/api/V1/wstoken', function (req, res) {
     }
 
     const t = Tokens.createToken(req.user.id);
-    console.log(t)
+    console.log(t);
     res.status(201).json({wstoken: t});
+});
+
+router.get('/api/V1/user', (req, res) => {
+    console.log('req: ' + req.user)
+
+    if(! req.user){
+        res.status(401).send();
+        return;
+    }
+
+    res.status(200).json({userId: req.user.id});
 });
 
 

@@ -5,6 +5,8 @@ import Game from './components/game';
 import Signup from './components/signup';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import createHistory from "history/createBrowserHistory"
+import axios from 'axios'
+
 
 const history = createHistory();
 
@@ -15,8 +17,13 @@ export class App extends Component {
         super(props);
 
         this.state = {
-            userId: null
+            userId: null,
+            errorMsg: null
         }
+    }
+
+    componentDidMount(){
+        this.checkIfAlreadyLoggedIn();
     }
 
     notFound(){
@@ -36,28 +43,45 @@ export class App extends Component {
         return this.state.userId !==null;
     }
 
+    checkIfAlreadyLoggedIn() {
+
+        const url = "/api/V1/user";
+
+        axios.get(url).then((id) =>{
+            console.log('inneeee!!!!!!!1');
+            console.log('id er: ' + JSON.stringify(id.data.userId));
+            this.setUserId(id.data.userId);
+        }).catch((err) =>{
+            this.setState({errorMsg: "Failed to connect to server: " + err});
+        });
+
+    };
+
 
     render() {
+        //if (this.state.errorMsg !== null) return(<p>{this.state.errorMsg}</p>);
         if (!this.isLogedIn() && history.location.pathname !== '/signup'){
+            console.log('ikke logga inn?: ' + this.state.userId);
             history.push('/login');
         }else if(this.isLogedIn()){
+            console.log('nå er vi her');
             history.push('/game');
-
         }
+
+        console.log(this.state.userId);
 
         return (
             <BrowserRouter>
                 <div>
                     <Switch>
+                        <Route
+                            exact path={"/game"}
+                            render={() => <Game userId={this.state.userId} setUserId={this.setUserId}/>}
+                        />
 
                         <Route
                             exact path={"/login"}
                             render={() => <Login setUserId={(e) => this.setUserId(e)}/>}
-                        />
-
-                        <Route
-                            exact path={"/game"}
-                            render={() => <Game userId={this.state.userId} setUserId={this.setUserId}/>}
                         />
 
                         <Route
@@ -74,5 +98,6 @@ export class App extends Component {
         );
     }
 }
+
 
 ReactDOM.render(<App/>, document.getElementById("root"));
