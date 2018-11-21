@@ -116,8 +116,8 @@ const addPlayer = (gameId, userId) => {
             admin: userId,
             question: q,
             round: 1,
-            rounds: 1,
-            timer: 2
+            rounds: 5,
+            timer: 10
         });
     }
 };

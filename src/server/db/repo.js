@@ -1,3 +1,4 @@
+//inspiration from users db in lesson 11 with some added security
 const bcrypt = require('bcrypt-nodejs');
 const players = new Map();
 

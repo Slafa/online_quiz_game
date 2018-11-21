@@ -7,15 +7,8 @@ let io;
 
 const start = (server) => {
 
-    //start a WebSocket server besides the REST API from Express
     io = socketIo(server);
 
-    /*
-        Every time a new user connects, a "connect" even is sent to the server,
-        and we can obtain the "socket" object associated with such new user.
-        On such object, we will register a series of event listeners using
-        ".on".
-     */
     io.on('connection', function (socket) {
         console.log('someone connected');
 

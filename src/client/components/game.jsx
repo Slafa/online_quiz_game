@@ -222,7 +222,7 @@ class Game extends Component {
         return(
             <div>
                 <Results name={'Player score'} data={score}/>
-                <button onClick={() => this.state.socket.emit('startGame',this.state.game.id)} className={'btn'}>Back to login</button>
+                <button onClick={() => window.location.reload()} className={'btn'}>Back to login</button>
             </div>
         )
     }

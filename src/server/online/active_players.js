@@ -1,3 +1,5 @@
+//this file is copied from lesson 11 and used as is
+
 
 /*
     For each active player that is currently online, we need to keep
